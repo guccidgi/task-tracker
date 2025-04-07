@@ -1,0 +1,92 @@
+### 🔄 Project Awareness & Context
+- **Always read `PLANNING.md`** at the start of a new conversation to understand the project's architecture, goals, style, and constraints.
+- **Check `TASK.md`** before starting a new task. If the task isn't listed, add it with a brief description and today's date.
+- **Use consistent naming conventions, file structure, and architecture patterns** as described in `PLANNING.md`.
+- **Follow Next.js 15 App Router conventions** for routing and component organization.
+
+### 🧱 Code Structure & Modularity
+- **Never create a file longer than 300 lines of code.** If a file approaches this limit, refactor by splitting it into smaller components or utility functions.
+- **Organize code into clearly separated modules**, grouped by feature or responsibility.
+- **Use clear, consistent imports** (prefer absolute imports with `@/` prefix for project files).
+- **Keep components focused on a single responsibility** following React best practices.
+
+### 🧪 Testing & Reliability
+- **Always create Jest/React Testing Library tests for new components** and utility functions.
+- **After updating any logic**, check whether existing unit tests need to be updated. If so, do it.
+- **Tests should live in a `__tests__` folder** adjacent to the components being tested.
+  - Include at least:
+    - 1 test for expected rendering/behavior
+    - 1 edge case
+    - 1 failure case
+
+### ✅ Task Completion
+- **Mark completed tasks in `TASK.md`** immediately after finishing them.
+- Add new sub-tasks or TODOs discovered during development to `TASK.md` under a "Discovered During Work" section.
+
+### 📎 Style & Conventions
+- **Use TypeScript** as the primary language for type safety.
+- **Follow the ShadCN UI component patterns** for consistent UI development.
+- **Use Tailwind CSS** for styling with consistent class naming.
+- **Implement proper form validation** using React Hook Form or similar libraries.
+- **Follow Next.js 15 and React 19 best practices** for server and client components:
+  ```typescript
+  // Server Component example
+  export default async function TaskList() {
+    // Server-side data fetching
+    const tasks = await fetchTasks();
+    
+    return (
+      <div className="grid gap-4">
+        {tasks.map(task => (
+          <TaskCard key={task.id} task={task} />
+        ))}
+      </div>
+    );
+  }
+  ```
+  
+  ```typescript
+  // Client Component example
+  'use client';
+  
+  import { useState } from 'react';
+  
+  export default function TaskForm({ onSubmit }) {
+    const [title, setTitle] = useState('');
+    
+    return (
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit({ title });
+        setTitle('');
+      }}>
+        {/* Form fields */}
+      </form>
+    );
+  }
+  ```
+
+### 🗄️ Database & Supabase Integration
+- **Use Supabase client** for all database operations and authentication.
+- **Implement Row Level Security (RLS)** for all tables to ensure data privacy.
+- **Create reusable hooks** for common Supabase operations.
+- **Handle errors gracefully** for all database operations.
+- **Use TypeScript types** that match your Supabase schema.
+
+### 📚 Documentation & Explainability
+- **Update `README.md`** when new features are added, dependencies change, or setup steps are modified.
+- **Comment non-obvious code** and ensure everything is understandable to a mid-level developer.
+- **Add JSDoc comments** to all functions and components:
+  ```typescript
+  /**
+   * TaskCard component displays an individual task with actions
+   * 
+   * @param {Task} task - The task object to display
+   * @param {Function} onStatusChange - Callback when status changes
+   * @returns {JSX.Element} Rendered task card
+   */
+  export function TaskCard({ task, onStatusChange }: TaskCardProps) {
+    // Component implementation
+  }
+  ```
+- When implementing complex logic, **add an inline `// Reason:` comment** explaining the why, not just the what.
